@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AetherGrid</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0a14'/%3E%3Ctext x='16' y='24' font-family='monospace' font-size='24' font-weight='bold' text-anchor='middle' fill='%235ae8ff'%3E@%3C/text%3E%3C/svg%3E">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: #02040a; overflow: hidden; }
+  #crt { position: fixed; inset: 0; overflow: hidden; background: #02040a; }
+  #crt canvas { position: absolute; left: 0; top: 0; display: block; }
+  /* Phosphor bloom: a small blurred copy of the frame, screen-blended over it. */
+  #glow { filter: blur(3px) brightness(1.45) saturate(1.25); opacity: .55; mix-blend-mode: screen; pointer-events: none; }
+
+  .layer { position: absolute; inset: 0; pointer-events: none; }
+  .sweep { background: linear-gradient(to bottom, rgba(120,190,255,0), rgba(120,190,255,.035) 50%, rgba(120,190,255,0)); height: 16%; animation: sweep 9s linear infinite; mix-blend-mode: screen; }
+  .flicker { background: rgba(255,255,255,.012); animation: flicker .11s infinite alternate; mix-blend-mode: overlay; }
+  @keyframes sweep { from { transform: translateY(-120%); } to { transform: translateY(700%); } }
+  @keyframes flicker { from { opacity: .3; } to { opacity: 1; } }
+
+  body.no-crt #glow, body.no-crt .layer { display: none; }
+  #hint { position: fixed; right: 10px; bottom: 4px; color: #2c3a58; font: 11px monospace; user-select: none; pointer-events: none; }
+</style>
+</head>
+<body>
+<div id="crt">
+  <canvas id="screen"></canvas>
+  <canvas id="glow"></canvas>
+  <div class="layer sweep"></div>
+  <div class="layer flicker"></div>
+</div>
+<div id="hint">F2 CRT &middot; F3 time of day</div>
+<noscript><div style="color:#5ae8ff;text-align:center;margin-top:30vh">AetherGrid needs JavaScript.</div></noscript>
+<script src="app.js"></script>
+</body>
+</html>
